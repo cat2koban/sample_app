@@ -36,3 +36,6 @@
 
 # for rbenv
 .ruby-version
+
+# for vim
+*.swp
