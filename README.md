@@ -1,24 +1,11 @@
-# README
+# sample_app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the like twitter application for the Ruby on Rails Tutorial.
 
-Things you may want to cover:
+## Environments
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- macOS High Sierra 10.13.6
+- rbenv 1.1.2
+- Ruby 2.6.3
+- Rails 5.2.3
+- Bundler 2.0.2
