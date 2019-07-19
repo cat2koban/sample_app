@@ -12,4 +12,5 @@ This is the like twitter application for the Ruby on Rails Tutorial.
 
 ## Deploy
 
-リモートブランチ `origin` の `master` ブランチに `push` すると，自動で heroku に deploy されている予定...
+`git push origin master`
+
