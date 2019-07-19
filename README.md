@@ -9,3 +9,7 @@ This is the like twitter application for the Ruby on Rails Tutorial.
 - Ruby 2.6.3
 - Rails 5.2.3
 - Bundler 2.0.2
+
+## Deploy
+
+リモートブランチ `origin` の `master` ブランチに `push` すると，自動で heroku に deploy されている予定...
