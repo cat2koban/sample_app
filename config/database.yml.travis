@@ -1,4 +1,4 @@
 test:
-	adaptor: postgresql
-	database: travis_ci_test
+  adaptor: postgresql
+  database: travis_ci_test
 
