@@ -1,5 +1,7 @@
 # sample_app
 
+[![Build Status](https://travis-ci.org/cat2koban/sample_app.svg?branch=master)](https://travis-ci.org/cat2koban/sample_app)
+
 This is the like twitter application for the Ruby on Rails Tutorial.
 
 ## Environments
