@@ -19,3 +19,7 @@ deploy:
   provider: heroku
   api_key:
     secure: jwjR0+QprySETlU/MuZr4MxLXkZKJh++3xDec3/WWXjsAgIuOlbBJRnauWNc8jkwF6todSbg/ZhYFybEbLjhPYbtdzetM3wv39ZXiZrXsPTej5wzbQWa4cIx9f83RH70j/NYgsD0AekhKGmaUX1isln1QK61BMrCELEKrI+AIzjDrPrNwbSaz+Pd7NVube6IHow0udw2c2kTFCR8m5WDfH6MIT/NMw75XyOYpSbSsJQ7IeOaJ85rpszUxsiv8581jMQ2UUau3fx/lYODGZ4Ml9klneVe+byuweqoqIENuRulRkOIKh8+IHaPlTQOhh+2FRoGtsALHuHUM05ecMZx85fWGTde7tc8Mtm5g+aWyW8i5F8aaYIceLBkkSQxekbz1eYf7zUWsN+sjp2rFFA/mLePoLP2KG1I4aoKo8ZERKEASsTLgDBRK8AEq/yAYE4bitzo6Y6IuXOAPSf+6nWFpHj2SM6/AjogQI8/fML/A7wKn09CsSUW/BxBlSECMtObfm0zgXxXwKFvag+L8tDQA/grneUxIsPadNjuNqnnnBXjjSc27x0qGlWv0IUif2peznFauNUg4J6HMVTmqyUzYNsKptoJ2RCOUxNMSXwl0w2QShJrgX36cn6hOVCwGtt+CMwhUqwAeL5X3XZUS/AYiWmEsFysiTR0KmeiBGvZVdA=
+  app: quiet-mesa-90616
+  on:
+    repo: cat2koban/sample_app
+
