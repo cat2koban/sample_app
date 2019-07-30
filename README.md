@@ -11,8 +11,4 @@ This is the like twitter application for the Ruby on Rails Tutorial.
 - Ruby 2.6.3
 - Rails 5.2.3
 - Bundler 2.0.2
-
-## Deploy
-
-`git push origin master`
-
+- travis 1.8.10
