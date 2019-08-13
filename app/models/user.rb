@@ -20,4 +20,10 @@ class User < ApplicationRecord
       SecureRandom.urlsafe_base64
     end
   end
+
+  # 永続セッションのために，ユーザーを DB に記憶する
+  def remember
+    self.remember_token = User.new_token
+    update_attribute(:remember_digest, User.digest(remember_token))
+  end
 end
