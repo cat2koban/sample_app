@@ -28,6 +28,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_url
   end
 
+  test "should get edit" do
+    log_in_as(@user)
+    get edit_user_path(@user)
+    assert_response :success
+  end
+
   test "should redirect update when not logged in" do
     patch user_path(@user), params: {
       user: {
