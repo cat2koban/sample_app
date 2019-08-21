@@ -11,6 +11,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_url
   end
 
+  test "should get index" do
+    log_in_as(@user)
+    get users_path
+    assert_response :success
+  end
+
   test "should get new" do
     get signup_path
     assert_response :success
