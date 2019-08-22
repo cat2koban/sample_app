@@ -77,6 +77,25 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
 
+  test "should update when editted in valid user" do
+    log_in_as(@user)
+    get edit_user_path(@user)
+    name  = "Foo Bar"
+    email = "foo@bar.com"
+    patch user_path(@user), params: {
+      user: {
+        name:  name,
+        email: email,
+        password: "",
+        password_confirmation: ""
+      }
+    }
+    assert_not flash[:success].empty?
+    @user.reload
+    assert_equal name, @user.name
+    assert_equal email, @user.email
+  end
+
   test "should redirect destroy when not logged in" do
     assert_no_difference 'User.count' do
       delete user_path(@user)
