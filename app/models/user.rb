@@ -40,8 +40,8 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
-  def activate
-    update_attributes(activated: true, activated_at: Time.zone.now)
+  def activate(now = Time.zone.now)
+    update_attributes(activated: true, activated_at: now)
   end
 
   def send_activation_email
