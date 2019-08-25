@@ -88,4 +88,13 @@ class UserTest < ActiveSupport::TestCase
   test "authenticated? should return false for a user with nil digest" do
     assert_not @user.authenticated?(:remember, '')
   end
+
+  test "test should have not activated by default" do
+    assert_not @user.activated?
+  end
+
+  test "test should have activated" do
+    @user.activate
+    assert @user.reload.activated?
+  end
 end
