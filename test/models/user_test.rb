@@ -89,12 +89,15 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.authenticated?(:remember, '')
   end
 
-  test "test should have not activated by default" do
+  test "activated? should return false by default" do
     assert_not @user.activated?
   end
 
-  test "test should have activated" do
-    @user.activate
-    assert @user.reload.activated?
+  test "should return true when activated" do
+    now = Time.zone.now
+    @user.activate(now)
+    @user.save
+    assert @user.activated?
+    assert_equal now,@user.activated_at
   end
 end
