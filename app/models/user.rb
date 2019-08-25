@@ -40,7 +40,7 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
-  def activate(now = Time.zone.now)
+  def activate(now)
     update_attributes(activated: true, activated_at: now)
   end
 
