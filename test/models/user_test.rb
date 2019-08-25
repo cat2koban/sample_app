@@ -86,6 +86,18 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "authenticated? should return false for a user with nil digest" do
-    assert_not @user.authenticated?('')
+    assert_not @user.authenticated?(:remember, '')
+  end
+
+  test "activated? should return false by default" do
+    assert_not @user.activated?
+  end
+
+  test "should return true when activated" do
+    now = Time.zone.now
+    @user.activate(now)
+    @user.save
+    assert @user.activated?
+    assert_equal now,@user.activated_at
   end
 end
