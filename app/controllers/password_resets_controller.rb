@@ -1,4 +1,6 @@
 class PasswordResetsController < ApplicationController
+  before_action :get_user,   only: [:edit, :update]
+  before_action :valid_user, only: [:edit, :update]
   # GET /password_resets/new
   def new
   end
@@ -25,4 +27,16 @@ class PasswordResetsController < ApplicationController
   # PATCH /password_resets/:id
   def update
   end
+
+  private
+
+    def get_user
+      @user = User.find_by(email: params[:email])
+    end
+
+    def valid_user
+      unless (@user && @user.activated? && @user.authenticated?(:reset, params[:id]))
+        redirect_to root_url
+      end
+    end
 end
