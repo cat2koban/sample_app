@@ -69,6 +69,12 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
     assert is_logged_in?
     assert_not flash.empty?
     assert_redirected_to user
+
+    # 再設定が終わった後 dbからユーザー情報を再取得したら
+    # reset_digestが nil になっているはず
+    assert_not @user.reset_digest.nil?
+    @user.reload
+    assert @user.reset_digest.nil?
   end
 
   test "expired token" do
