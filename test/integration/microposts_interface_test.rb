@@ -2,7 +2,8 @@ require 'test_helper'
 
 class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
   def setup
-    @user = users(:michael)
+    @user       = users(:michael)
+    @other_user = users(:malory)
   end
 
   test "micropost interface" do
@@ -31,5 +32,18 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     # 違うユーザーのプロフィールにアクセス (削除リンクがないことを確認)
     get user_path(users(:archer))
     assert_select 'a', text: 'delete', count: 0
+  end
+
+  test "micropost sidebar count" do
+    log_in_as(@user)
+    get root_path
+    assert_match "#{@user.microposts.count} microposts", response.body
+    # まだマイクロポストを投稿していないユーザー
+    log_in_as(@other_user)
+    get root_path
+    assert_match "0 microposts", response.body
+    @other_user.microposts.create!(content: "A micropost")
+    get root_path
+    assert_match "1 micropost", response.body
   end
 end
