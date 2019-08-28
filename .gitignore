@@ -39,3 +39,6 @@
 
 # for vim
 *.swp
+
+# for upload images
+public/uploads/micropost/
