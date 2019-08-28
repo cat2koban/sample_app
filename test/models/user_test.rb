@@ -100,4 +100,14 @@ class UserTest < ActiveSupport::TestCase
     assert @user.activated?
     assert_equal now,@user.activated_at
   end
+
+  test "should return true when reset_sent_at is nil" do
+    assert_nil @user.reset_sent_at
+    assert @user.password_reset_expired?
+  end
+
+  test "should return false when reset_sent_at is not nil" do
+    @user.update!(reset_sent_at: Time.zone.now)
+    assert_not @user.reload.password_reset_expired?
+  end
 end
