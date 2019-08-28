@@ -66,6 +66,12 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
+  # 試作feedの定義
+  # 次の章で完全体に...!
+  def feed
+    Micropost.where("user_id = ?", self.id)
+  end
+
   private
 
     def downcase_email
