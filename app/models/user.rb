@@ -61,6 +61,7 @@ class User < ApplicationRecord
 
   # パスワード再設定の期限が切れている場合はtrueを返す
   def password_reset_expired?
+    return true unless reset_sent_at # 値が入ってない場合も期限切れ同様 true を返す
     reset_sent_at < 2.hours.ago
   end
 
