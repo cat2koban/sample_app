@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   private
 
     # ユーザーのログインを確認する
-    def logged_in_user
+    def redirect_unless_logged_in
       unless logged_in?
         store_location
         flash[:danger] = "Please log in."
