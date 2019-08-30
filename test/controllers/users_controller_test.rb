@@ -117,4 +117,24 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       delete user_path(@other_user)
     end
   end
+
+  test "should get following user page when logged in" do
+    log_in_as(@user)
+    get following_user_path(@user)
+  end
+
+  test "should redirect following when not logged in" do
+    get following_user_path(@user)
+    assert_redirected_to login_url
+  end
+
+  test "should get followers page when logged in" do
+    log_in_as(@user)
+    get following_user_path(@user)
+  end
+
+  test "should redirect followers when not logged in" do
+    get followers_user_path(@user)
+    assert_redirected_to login_url
+  end
 end
