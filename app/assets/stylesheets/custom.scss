@@ -186,6 +186,12 @@ aside {
   padding: 0;
 }
 
+#follow_form .btn-secondary {
+  background: #cccccc;
+  &:hover {
+    background: #aaaaaa
+  }
+}
 /* forms */
 
 input, textarea, select, .uneditable-input {
