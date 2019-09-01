@@ -31,6 +31,13 @@ class FollowingTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "should failed when follow again" do
+    @user.follow(@other)
+    assert_no_difference '@user.following.count' do
+      post relationships_path, params: { followed_id: @other.id }
+    end
+  end
+
   test "should follow a user with Ajax" do
     assert_difference '@user.following.count', 1 do
       post relationships_path, xhr: true, params: { followed_id: @other.id }
