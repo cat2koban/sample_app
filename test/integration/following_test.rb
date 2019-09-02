@@ -35,6 +35,7 @@ class FollowingTest < ActionDispatch::IntegrationTest
     @user.follow(@other)
     assert_no_difference '@user.following.count' do
       post relationships_path, params: { followed_id: @other.id }
+      assert_not flash[:danger].empty?
     end
   end
 
