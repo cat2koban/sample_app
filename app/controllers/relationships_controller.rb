@@ -4,7 +4,10 @@ class RelationshipsController < ApplicationController
   # POST /relationships
   def create
     @user = User.find(params[:followed_id])
-    current_user.follow(@user)
+    relation = current_user.follow(@user)
+    unless relation.persisted?
+      flash[:danger] = "Already followed this user"
+    end
     respond_to do |format|
       format.html { redirect_to @user }
       format.js
