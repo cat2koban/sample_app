@@ -16,7 +16,6 @@ class RelationshipsController < ApplicationController
 
   # DELETE /relationships/:id
   def destroy
-    puts params[:followed_id]
     relation = Relationship.find_by(id: params[:id])
     unless relation.nil?
       @user = relation.followed
