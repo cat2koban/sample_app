@@ -16,10 +16,18 @@ class RelationshipsController < ApplicationController
 
   # DELETE /relationships/:id
   def destroy
-    @user = Relationship.find(params[:id]).followed
-    current_user.unfollow(@user)
+    puts params[:followed_id]
+    relation = Relationship.find_by(id: params[:id])
+    unless relation.nil?
+      @user = relation.followed
+      current_user.unfollow(@user)
+      path = user_path(@user)
+    else
+      flash[:danger] = "Unfollowing users cannot be unfollowed"
+      path = root_path
+    end
     respond_to do |format|
-      format.html { redirect_to @user }
+      format.html { redirect_to path }
       format.js
     end
   end
