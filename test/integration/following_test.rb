@@ -28,6 +28,7 @@ class FollowingTest < ActionDispatch::IntegrationTest
   test "should follow a user the standard way" do
     assert_difference '@user.following.count', 1 do
       post relationships_path, params: { followed_id: @other.id }
+      assert_redirected_to user_path(@other)
     end
   end
 
@@ -50,6 +51,14 @@ class FollowingTest < ActionDispatch::IntegrationTest
     relationship = @user.active_relationships.find_by(followed_id: @other.id)
     assert_difference '@user.following.count', -1 do
       delete relationship_path(relationship)
+    end
+  end
+
+  test "should failed unfollow a user not following" do
+    assert_no_difference '@user.following.count' do
+      delete relationship_path(id: 999) # nonexist id
+      assert_not flash[:danger].empty?
+      assert_redirected_to root_path
     end
   end
 
