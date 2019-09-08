@@ -55,8 +55,10 @@ class FollowingTest < ActionDispatch::IntegrationTest
   end
 
   test "should failed unfollow a user not following" do
+    nonexist_id = Relationship.maximum(:id) + 1
+    puts nonexist_id
     assert_no_difference '@user.following.count' do
-      delete relationship_path(id: 999) # nonexist id
+      delete relationship_path(id: nonexist_id)
       assert_not flash[:danger].empty?
       assert_redirected_to root_path
     end
