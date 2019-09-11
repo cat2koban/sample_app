@@ -40,5 +40,8 @@
 # for vim
 *.swp
 
+# for RubyMine
+.idea/
+
 # for upload images
 public/uploads/micropost/
