@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user)  { create(:michael) }
-  let(:other) { create(:archer) }
+  let(:user)  { create(:user, :michael) }
+  let(:other) { create(:user, :archer) }
 
   context "有効なユーザーの時" do
     it "valid となる" do
