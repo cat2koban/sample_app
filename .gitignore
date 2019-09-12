@@ -45,3 +45,6 @@
 
 # for upload images
 public/uploads/micropost/
+
+# for RSpec
+spec/examples.txt
