@@ -13,24 +13,28 @@ RSpec.describe User, type: :model do
   context "name属性" do
     it "空だとinvalid" do
       user.name = " "
-      expect(user).to be_invalid
+      user.valid?
+      expect(user.errors[:name]).to include("can't be blank")
     end
 
     it "50文字以上だとinvalid" do
       user.name = "a" * 51
-      expect(user).to be_invalid
+      user.valid?
+      expect(user.errors[:name]).to include("is too long (maximum is 50 characters)")
     end
   end
 
   context "email属性" do
     it "空だとinvalid" do
       user.email = " "
-      expect(user).to be_invalid
+      user.valid?
+      expect(user.errors[:email]).to include("can't be blank")
     end
 
     it "255文字以上だとinvalid" do
       user.email = "a" * 244 + "@example.com"
-      expect(user).to be_invalid
+      user.valid?
+      expect(user.errors[:email]).to include("is too long (maximum is 255 characters)")
     end
 
     it "有効なメールフォーマットだとvalid" do
@@ -40,13 +44,15 @@ RSpec.describe User, type: :model do
 
     it "無効なメールフォーマットだとinvalid" do
       user.email = "user_at_foo.org"
-      expect(user).to be_invalid
+      user.valid?
+      expect(user.errors[:email]).to include("is invalid")
     end
 
     it "一意性がないとinvalid" do
       duplicate_user = user.dup
       duplicate_user.email = user.email.upcase
-      expect(duplicate_user).to be_invalid
+      duplicate_user.valid?
+      expect(duplicate_user.errors[:email]).to include("has already been taken")
     end
   end
 

@@ -15,17 +15,20 @@ RSpec.describe Micropost, type: :model do
   context "無効なマイクロポストを作成した時" do
     it "user_idが無いと，invalidとなる" do
       @micropost.user_id = nil
-      expect(@micropost).to be_invalid
+      @micropost.valid?
+      expect(@micropost.errors[:user_id]).to include("can't be blank")
     end
 
     it "contentが無いと，invalidとなる" do
       @micropost.content = "  "
-      expect(@micropost).to be_invalid
+      @micropost.valid?
+      expect(@micropost.errors[:content]).to include("can't be blank")
     end
 
     it "contentが140文字以上だと，invalidとなる" do
       @micropost.content = "a" * 141
-      expect(@micropost).to be_invalid
+      @micropost.valid?
+      expect(@micropost.errors[:content]).to include("is too long (maximum is 140 characters)")
     end
   end
 

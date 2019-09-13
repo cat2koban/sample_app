@@ -20,12 +20,14 @@ RSpec.describe Relationship, type: :model do
   describe '無効なリレーションシップを作成した時' do
     it "followed_idが空だとinvalidとなる" do
       relationship.followed_id = nil
-      expect(relationship).to be_invalid
+      relationship.valid?
+      expect(relationship.errors[:followed_id]).to include("can't be blank")
     end
 
     it "follower_idが空だとinvalidとなる" do
       relationship.follower_id = nil
-      expect(relationship).to be_invalid
+      relationship.valid?
+      expect(relationship.errors[:follower_id]).to include("can't be blank")
     end
 
     it "同じリレーションを作成してもDBに保存されない" do
@@ -35,7 +37,6 @@ RSpec.describe Relationship, type: :model do
       )
       relationship.save
       @invalid_relationship.save
-      #expect(relationship).to be_persisted
       expect(@invaid_relationship).to be_nil
     end
   end
