@@ -7,6 +7,12 @@ FactoryBot.define do
     password              { 'password' }
     password_confirmation { 'password' }
 
+    factory :other_user do
+      name                  { "Example Other" }
+      email                 { "other@example.com" }
+      activated             { true }
+    end
+
     trait :michael do
       name                  { "Michael Example" }
       email                 { "michael@example.com" }
