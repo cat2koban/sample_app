@@ -42,6 +42,9 @@ group :test do
   gem 'guard',                    '2.13.0'
   gem 'guard-minitest',           '2.4.4'
   gem 'rspec-request_describer',  '0.3.1'
+  gem 'capybara',                 '3.29.0'
+  gem 'selenium-webdriver',       '3.142.4'
+  gem 'launchy',                  '2.4.3'
 end
 
 group :production do
