@@ -14,13 +14,19 @@ RSpec.describe RelationshipsController, type: :request do
       let(:other_user) { create(:other_user) }
       before do
         params['followed_id'] = other_user.id
+        log_in_as(user)
       end
       it 'リレーションが作成される' do
-        log_in_as(user)
         relationship_count = Relationship.count
         is_expected.to eq(302)
         expect(response.body).to redirect_to(user_path(other_user))
         expect(Relationship.count).to eq(relationship_count+1)
+      end
+
+      it '同じリレーションは作成されない' do
+        user.follow(other_user)
+        is_expected.to eq(302)
+        expect(flash[:danger]).to include("Already followed this user")
       end
     end
   end
@@ -35,6 +41,7 @@ RSpec.describe RelationshipsController, type: :request do
       )
     }
     let(:id) { relationship.id }
+
     context 'ログインしていない時' do
       it 'ログインページにリダイレクトされる' do
         is_expected.to eq(302)
@@ -50,6 +57,18 @@ RSpec.describe RelationshipsController, type: :request do
         is_expected.to eq(302)
         expect(response.body).to redirect_to(user_path(other_user))
         expect(Relationship.count).to eq(relationship_count-1)
+      end
+    end
+  end
+
+  describe 'DELETE /relationships/:nonexist_id' do
+    let(:user)        { create(:user) }
+    let(:nonexist_id) { 999 }
+    context 'ログインしている時' do
+      it '存在しないリレーションは削除できない' do
+        log_in_as(user)
+        is_expected.to eq(302)
+        expect(flash[:danger]).to include("Unfollowing users cannot be unfollowed")
       end
     end
   end
