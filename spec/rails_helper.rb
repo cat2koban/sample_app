@@ -19,6 +19,7 @@ end
 RSpec.configure do |config|
   config.include RSpec::RequestDescriber, type: :request
   config.include FactoryBot::Syntax::Methods
+  config.include Capybara::DSL
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -27,5 +28,4 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.filter_rails_from_backtrace!
-
 end
