@@ -6,6 +6,7 @@ RSpec.describe Relationship, type: :model do
   let(:relationship) {
     Relationship.new(followed_id: user.id, follower_id: michael.id)
   }
+
   describe '有効なリレーションシップを作成した時' do
     it "validとなる" do
       expect(relationship).to be_valid
@@ -31,13 +32,14 @@ RSpec.describe Relationship, type: :model do
     end
 
     it "同じリレーションを作成してもDBに保存されない" do
-      @invalid_relationship = Relationship.new(
-        follower_id: user.id,
-        followed_id: michael.id
+      invalid_relationship = Relationship.new(
+        followed_id: user.id,
+        follower_id: michael.id
       )
       relationship.save
-      @invalid_relationship.save
-      expect(@invaid_relationship).to be_nil
+      invalid_relationship.save
+      expect(relationship).to be_persisted
+      expect(invalid_relationship).to_not be_persisted
     end
   end
 end
