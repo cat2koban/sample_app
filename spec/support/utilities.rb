@@ -25,3 +25,8 @@ def log_in_as(user, options={})
     click_button 'Log in'
   end
 end
+
+def log_out
+  click_on 'Account'
+  click_on 'Log out'
+end
