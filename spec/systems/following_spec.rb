@@ -38,7 +38,8 @@ RSpec.describe 'Following', type: :system do
     visit user_path(archer)
     expect(current_path).to eq(user_path(archer))
     click_button 'Follow'
-    expect(user.following.pluck(:id).include?(archer.id)).to be_truthy
+    expect(user.reload.following.pluck(:id).include?(archer.id)).to be_truthy
+    expect(archer.reload.followers.pluck(:id).include?(user.id)).to be_truthy
   end
 
   scenario 'ユーザーのフォローを解除する' do
@@ -46,7 +47,8 @@ RSpec.describe 'Following', type: :system do
     visit user_path(michael)
     expect(current_path).to eq(user_path(michael))
     click_button 'Unfollow'
-    expect(user.following.pluck(:id).include?(michael.id)).to be_falsey
+    expect(user.reload.following.pluck(:id).include?(michael.id)).to be_falsey
+    expect(michael.reload.followers.pluck(:id).include?(user.id)).to be_falsey
   end
 
   scenario '/ でフォローしたユーザーのマイクロポストが閲覧できる' do
