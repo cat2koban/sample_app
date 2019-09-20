@@ -56,7 +56,6 @@ RSpec.describe 'Following', type: :system do
     create_microposts
     visit root_path
     expect(current_path).to eq(root_path)
-    hoge = all('li', :text => /micropost-*/)
     user.feed.paginate(page: 1).each do |micropost|
       page.has_text?(CGI.escapeHTML(micropost.content))
     end
