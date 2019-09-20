@@ -13,10 +13,9 @@ RSpec.describe MicropostsController, type: :request do
       let(:user)      { create(:user) }
       let(:id)        { user.id }
       before do
-        params['micropost'] = {
-          content: "Lorem ipsum"
-        }
+        params['micropost'] = { content: "Lorem ipsum" }
       end
+
       it 'マイクロポストが投稿できる' do
         log_in_as(user)
         microposts_counts = Micropost.count
@@ -32,6 +31,7 @@ RSpec.describe MicropostsController, type: :request do
     context 'ログインしていない時' do
       let(:micropost) { create(:micropost) }
       let(:id)        { micropost.id }
+
       it 'ログインページにリダイレクトされる' do
         is_expected.to eq(302)
         expect(response.body).to redirect_to(login_path)
@@ -46,6 +46,7 @@ RSpec.describe MicropostsController, type: :request do
         create(:micropost, user: user)
         create(:other_micropost, user: other_user)
       end
+
       it 'マイクロポストが削除できる' do
         log_in_as(user)
         micropost_count = Micropost.count

@@ -16,6 +16,7 @@ RSpec.describe RelationshipsController, type: :request do
         params['followed_id'] = other_user.id
         log_in_as(user)
       end
+
       it 'リレーションが作成される' do
         relationship_count = Relationship.count
         is_expected.to eq(302)
@@ -64,6 +65,7 @@ RSpec.describe RelationshipsController, type: :request do
   describe 'DELETE /relationships/:nonexist_id' do
     let(:user)        { create(:user) }
     let(:nonexist_id) { 999 }
+
     context 'ログインしている時' do
       it '存在しないリレーションは削除できない' do
         log_in_as(user)

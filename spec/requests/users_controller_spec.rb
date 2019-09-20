@@ -12,6 +12,7 @@ RSpec.describe UsersController, type: :request do
     context 'ログインしている時' do
       let(:user) { create(:user, :michael) }
       let(:id)   { user.id }
+
       it 'ユーザー一覧が取得できる' do
         log_in_as(user)
         is_expected.to eq(200)
@@ -30,6 +31,7 @@ RSpec.describe UsersController, type: :request do
   describe 'GET /users/:id/edit' do
     let(:user) { create(:user, :michael) }
     let(:id)   { user.id }
+
     context 'ログインしてない時' do
       it 'ログインページにリダイレクトされる' do
         is_expected.to eq(302)
@@ -39,6 +41,7 @@ RSpec.describe UsersController, type: :request do
 
     context '異なるユーザーが編集しようとした時' do
       let(:other_user) { create(:user, :archer) }
+
       it 'root_urlにリダイレクトする' do
         log_in_as(other_user)
         is_expected.to eq(302)
@@ -59,6 +62,7 @@ RSpec.describe UsersController, type: :request do
     context 'ログインしていない時' do
       let(:user) { create(:user) }
       let(:id)   { user.id }
+
       it 'ログインページにリダイレクトされる' do
         is_expected.to eq(302)
         expect(response.body).to redirect_to(login_path)
@@ -76,6 +80,7 @@ RSpec.describe UsersController, type: :request do
           password_confirmation: ""
         }
       end
+
       it '情報が更新される' do
         log_in_as(user)
         is_expected.to eq(302)
@@ -96,6 +101,7 @@ RSpec.describe UsersController, type: :request do
           admin: false
         }
       end
+
       it '制限により更新されない' do
         is_expected.to eq(302)
         expect(user.reload.admin?).to be_truthy
@@ -107,6 +113,7 @@ RSpec.describe UsersController, type: :request do
     context 'ログインしていない時' do
       let(:user) { create(:user) }
       let(:id)   { user.id }
+
       it 'ログインページにリダイレクトされる' do
         is_expected.to eq(302)
         expect(response.body).to redirect_to(login_path)
@@ -117,6 +124,7 @@ RSpec.describe UsersController, type: :request do
       let(:user)       { create(:user, :michael) }
       let(:other_user) { create(:user, :archer) }
       let(:id)         { other_user.id }
+
       it 'ユーザーを削除できる' do
         log_in_as(user)
         expect(User.all).to include(other_user)
@@ -130,6 +138,7 @@ RSpec.describe UsersController, type: :request do
     context 'ログインしているが管理者でない時' do
       let(:user) { create(:user, :archer) }
       let(:id)   { user.id }
+
       it 'ユーザーは削除できず,root_urlにリダイレクトする' do
         log_in_as(user)
         is_expected.to eq(302)
@@ -141,6 +150,7 @@ RSpec.describe UsersController, type: :request do
   describe 'GET /users/:id/followers' do
     let(:user) { create(:user, :michael)}
     let(:id)   { user.id }
+
     context 'ログインしていない時' do
       it 'ログインページにリダイレクトされる' do
         is_expected.to eq(302)
@@ -160,6 +170,7 @@ RSpec.describe UsersController, type: :request do
   describe 'GET /users/:id/following' do
     let(:user) { create(:user, :michael) }
     let(:id)   { user.id }
+
     context 'ログインしていない時' do
       it 'ログインページにリダイレクトされる' do
         is_expected.to eq(302)
