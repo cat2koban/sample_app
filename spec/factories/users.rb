@@ -8,8 +8,8 @@ FactoryBot.define do
     password_confirmation { 'password' }
 
     factory :other_user do
-      name                  { "Example Other" }
-      email                 { "other@example.com" }
+      name                  { Faker::Name.name }
+      email                 { Faker::Internet.email }
       activated             { true }
     end
 
