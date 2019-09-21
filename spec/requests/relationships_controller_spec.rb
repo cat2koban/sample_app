@@ -74,4 +74,33 @@ RSpec.describe RelationshipsController, type: :request do
       end
     end
   end
+
+  describe 'Ajaxを利用したフォロー' do
+    let(:user)       { create(:user) }
+    let(:other_user) { create(:other_user) }
+    let(:relationship) {
+      Relationship.create(
+        follower_id: user.id,
+        followed_id: other_user.id
+      )
+    }
+    before do
+      log_in_as(user)
+    end
+
+    context 'ログインしている時' do
+      it 'フォローできる' do
+        expect{
+          post relationships_path, xhr: true, params: { followed_id: other_user.id }
+        }.to change{ Relationship.count }.by(1)
+      end
+
+      it 'フォロー解除できる' do
+        relationship
+        expect{
+          delete relationship_path(relationship), xhr: true
+        }.to change{ Relationship.count }.by(-1)
+      end
+    end
+  end
 end
