@@ -36,7 +36,8 @@ RSpec.describe RelationshipsController, type: :request do
     let(:user)         { create(:user) }
     let(:other_user)   { create(:other_user) }
     let(:relationship) {
-      Relationship.create(
+      create(
+        :relationship,
         follower_id: user.id,
         followed_id: other_user.id
       )
@@ -79,7 +80,8 @@ RSpec.describe RelationshipsController, type: :request do
     let(:user)       { create(:user) }
     let(:other_user) { create(:other_user) }
     let(:relationship) {
-      Relationship.create(
+      create(
+        :relationship,
         follower_id: user.id,
         followed_id: other_user.id
       )
