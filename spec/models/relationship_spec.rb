@@ -7,7 +7,7 @@ RSpec.describe Relationship, type: :model do
     Relationship.new(followed_id: user.id, follower_id: michael.id)
   }
 
-  describe '有効なリレーションシップを作成した時' do
+  context '有効なリレーションシップを作成した時' do
     it "validとなる" do
       expect(relationship).to be_valid
     end
@@ -18,28 +18,34 @@ RSpec.describe Relationship, type: :model do
     end
   end
 
-  describe '無効なリレーションシップを作成した時' do
-    it "followed_idが空だとinvalidとなる" do
-      relationship.followed_id = nil
-      relationship.valid?
-      expect(relationship.errors[:followed_id]).to include("can't be blank")
+  context '無効なリレーションシップを作成した時' do
+    context "followed_idが空の時" do
+      it "invalidとなる" do
+        relationship.followed_id = nil
+        relationship.valid?
+        expect(relationship.errors[:followed_id]).to include("can't be blank")
+      end
     end
 
-    it "follower_idが空だとinvalidとなる" do
-      relationship.follower_id = nil
-      relationship.valid?
-      expect(relationship.errors[:follower_id]).to include("can't be blank")
+    context "follower_idが空の時" do
+      it "invalidとなる" do
+        relationship.follower_id = nil
+        relationship.valid?
+        expect(relationship.errors[:follower_id]).to include("can't be blank")
+      end
     end
 
-    it "同じリレーションを作成してもDBに保存されない" do
-      invalid_relationship = Relationship.new(
-        followed_id: user.id,
-        follower_id: michael.id
-      )
-      relationship.save
-      invalid_relationship.save
-      expect(relationship).to be_persisted
-      expect(invalid_relationship).to_not be_persisted
+    context "同じリレーションを作成した時" do
+      it "DBに保存されない" do
+        invalid_relationship = Relationship.new(
+          followed_id: user.id,
+          follower_id: michael.id
+        )
+        relationship.save
+        invalid_relationship.save
+        expect(relationship).to be_persisted
+        expect(invalid_relationship).to_not be_persisted
+      end
     end
   end
 end
