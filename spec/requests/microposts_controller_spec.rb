@@ -47,20 +47,24 @@ RSpec.describe MicropostsController, type: :request do
         create(:other_micropost, user: other_user)
       end
 
-      it 'マイクロポストが削除できる' do
-        log_in_as(user)
-        micropost_count = Micropost.count
-        is_expected.to eq(302)
-        expect(flash[:success]).to include("Micropost deleted")
-        expect(response.body).to redirect_to(root_url)
-        expect(Micropost.count).to eq(micropost_count-1)
+      context '自分の投稿したマイクロポストの時' do
+        it '削除できる' do
+          log_in_as(user)
+          micropost_count = Micropost.count
+          is_expected.to eq(302)
+          expect(flash[:success]).to include("Micropost deleted")
+          expect(response.body).to redirect_to(root_url)
+          expect(Micropost.count).to eq(micropost_count-1)
+        end
       end
 
-      it '他のユーザーが投稿したマイクロポストは削除できない' do
-        log_in_as(other_user)
-        micropost_count = Micropost.count
-        is_expected.to eq(302)
-        expect(Micropost.count).to eq(micropost_count)
+      context '他のユーザーが投稿したマイクロポストの時' do
+        it '削除できない' do
+          log_in_as(other_user)
+          micropost_count = Micropost.count
+          is_expected.to eq(302)
+          expect(Micropost.count).to eq(micropost_count)
+        end
       end
     end
   end
