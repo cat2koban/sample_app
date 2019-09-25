@@ -21,8 +21,11 @@ gem 'will_paginate',  '3.1.7'
 gem 'bootstrap-will_paginate', '1.0.0'
 
 group :development, :test do
-  gem 'sqlite3', '1.3.13'
-  gem 'byebug',  '9.0.6', platforms: :mri
+  gem 'sqlite3',           '1.3.13'
+  gem 'byebug',            '11.0.1'
+  gem 'pry-byebug' ,       '3.7.0'
+  gem 'rspec-rails',       '3.8.2'
+  gem 'factory_bot_rails', '5.0.2'
 end
 
 group :development do
@@ -30,6 +33,7 @@ group :development do
   gem 'listen',                '3.1.5'
   gem 'spring',                '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
+  gem 'spring-commands-rspec', '1.0.4'
 end
 
 group :test do
@@ -38,6 +42,10 @@ group :test do
   gem 'minitest-reporters',       '1.1.14'
   gem 'guard',                    '2.13.0'
   gem 'guard-minitest',           '2.4.4'
+  gem 'rspec-request_describer',  '0.3.1'
+  gem 'capybara',                 '3.29.0'
+  gem 'selenium-webdriver',       '3.142.4'
+  gem 'launchy',                  '2.4.3'
 end
 
 group :production do

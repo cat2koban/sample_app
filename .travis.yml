@@ -1,18 +1,26 @@
+sudo: required
+dist: trusty
 language: ruby
 rvm:
 - 2.6
 cache: bundler
 before_install:
 - gem install bundler
+- sudo apt-get update
+- sudo apt-get install chromium-chromedriver
+before_script:
+- "export PATH=$PATH:/usr/lib/chromium-browser/"
+- "export DISPLAY=:99.0"
+- "sh -e /etc/init.d/xvfb start"
+- sleep 3
+- psql -c 'create database travis_ci_test;' -U postgres
+- cp config/database.yml.travis config/database.yml
 bundler_args: "--without development --jobs=3"
 services:
 - postgresql
-before_script:
-- psql -c 'create database travis_ci_test;' -U postgres
-- cp config/database.yml.travis config/database.yml
 script:
 - bin/rails db:migrate RAILS_ENV=test
-- bin/rails test
+- bin/rspec spec/
 notifications:
   email: false
 deploy:
