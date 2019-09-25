@@ -1,5 +1,4 @@
 require 'rails_helper'
-Capybara.server = :webrick
 
 RSpec.describe "UsersLogin", type: :system do
   let(:user) { create(:user) }
